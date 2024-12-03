@@ -21,5 +21,5 @@ This project is a front-end implementation for the SuperNo MVP, showcasing intui
 ## 🧰 Installation
 1. Clone the repository:
    ```bash
-      git clone https://github.com/yourusername/SuperNo-Frontend.git
+      git clone https://github.com/takbirgazi/superNo-client
    ```
