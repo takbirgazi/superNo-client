@@ -131,7 +131,7 @@ function NavbarItems() {
         </div>
         <div className='flex gap-5 items-center'>
           <NavLink to="/login" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Log In</NavLink>
-          <NavLink to="/" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Sign Up</NavLink>
+          <NavLink to="/signup" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Sign Up</NavLink>
         </div>
       </div>
       <div className='flex md:hidden'>
