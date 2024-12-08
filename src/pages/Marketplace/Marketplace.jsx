@@ -9,7 +9,7 @@ const Marketplace = () => {
     }, [])
 
     return (
-        <section className="bg-gray-50 dark:bg-gray-900 px-4 py-8">
+        <section className="bg-gray-50 dark:bg-[#121212] px-4 py-8">
             <div className="max-w-7xl mx-auto">
                 {/* Page Header */}
                 <div className="flex flex-col sm:flex-row items-center justify-between mb-6">

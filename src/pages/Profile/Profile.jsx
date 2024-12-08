@@ -2,7 +2,7 @@
 
 const Profile = () => {
     return (
-        <section className="bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4 w-full">
+        <section className="bg-gray-50 dark:bg-[#121212] flex items-center justify-center p-4 w-full">
             <div className="w-full sm:max-w-lg bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-700">
                 <div className="p-6 space-y-6">
                     <h2 className="text-xl font-bold text-gray-900 dark:text-white text-center">

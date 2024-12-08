@@ -31,7 +31,7 @@ const SignUp = () => {
             <Helmet>
                 <title>Sign Up - SuperNo</title>
             </Helmet>
-            <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4">
+            <section className="bg-gray-50 dark:bg-[#121212] min-h-screen flex items-center justify-center p-4">
                 <div className="w-full sm:max-w-md lg:max-w-lg bg-white dark:bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
                     <div className="p-6 space-y-4 sm:space-y-6">
                         <h1 className="text-xl font-bold text-gray-900 md:text-2xl dark:text-white text-center">
