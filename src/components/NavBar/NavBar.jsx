@@ -11,27 +11,46 @@ import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Profile from '../../pages/Profile/Profile';
+import Marketplace from '../../pages/Marketplace/Marketplace';
+import Checkout from '../../pages/Checkout/Checkout';
 
 // Router Data 
 const NAVIGATION = [
   {
-    segment: 'home',
+    segment: '',
     title: 'Home Page',
     icon: <DashboardIcon />,
   },
   {
-    segment: "about",
-    title: 'About Page',
+    segment: "profile",
+    title: 'Profile Management',
     icon: <TimelineIcon />,
   },
+  {
+    segment: "marketplace",
+    title: "Browsing Marketplace",
+    icon: <TimelineIcon />,
+  },
+  {
+    segment: "checkout",
+    title: "Checkout Functionality",
+    icon: <TimelineIcon />,
+  }
 ];
 // Showing Router Element 
 const RouterElement = ({ pathname }) => {
-  const myPath = pathname.pathname;
-  if (myPath == "/home") {
-    return <div>This Is Home Page</div>
-  } else {
-    return <div>No Data Found</div>
+  switch (pathname.pathname) {
+    case "/":
+      return <div>This Is Home Page</div>;
+    case "/profile":
+      return <Profile />;
+    case "/marketplace":
+      return <Marketplace />;
+    case "/checkout":
+      return <Checkout />;
+    default:
+      return <div className='flex items-center justify-center text-center h-full text-2xl'>No Data Found</div>;
   }
 };
 

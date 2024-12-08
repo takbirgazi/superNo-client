@@ -1,107 +1,118 @@
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const SignUp = () => {
+    const isDark = useSelector(state => state.changeTheme);
+    const [showPwd, setShowPwd] = useState(false);
+    const [mssage, setMessage] = useState("");
+
+    const signUpHandleSubmit = (event) => {
+        event.preventDefault();
+        const formData = event.target;
+        const email = formData.email.value;
+        const password = formData.password.value;
+        const confirmPassword = formData.confirmPassword.value;
+        const data = { email, password, confirmPassword }
+        if (password !== confirmPassword) {
+            setMessage(<span className="text-red-500">Password and Confirm password are not same!</span>);
+            return
+        } else {
+            console.log(data);
+            setMessage(<span className="text-blue-400">Account Created Successfully!</span>);
+
+        }
+    }
     return (
-        <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center px-4">
-            <div className="w-full sm:max-w-md lg:max-w-lg bg-white dark:bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
-                <div className="p-6 space-y-4 sm:space-y-6">
-                    <h1 className="text-xl font-bold text-gray-900 md:text-2xl dark:text-white text-center">
-                        Create an account
-                    </h1>
-                    <form className="space-y-4 md:space-y-6" action="#">
-                        {/* Email Field */}
-                        <div>
-                            <label
-                                htmlFor="email"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                                Your email
-                            </label>
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="name@company.com"
-                                required
-                            />
-                        </div>
-                        {/* Password Field */}
-                        <div>
-                            <label
-                                htmlFor="password"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                placeholder="••••••••"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required
-                            />
-                        </div>
-                        {/* Confirm Password Field */}
-                        <div>
-                            <label
-                                htmlFor="confirm-password"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                                Confirm password
-                            </label>
-                            <input
-                                type="password"
-                                name="confirm-password"
-                                id="confirm-password"
-                                placeholder="••••••••"
-                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required
-                            />
-                        </div>
-                        {/* Terms and Conditions */}
-                        <div className="flex items-start">
-                            <div className="flex items-center h-5">
+        <main className={`${isDark && "dark"}`}>
+            <Helmet>
+                <title>Sign Up - SuperNo</title>
+            </Helmet>
+            <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4">
+                <div className="w-full sm:max-w-md lg:max-w-lg bg-white dark:bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">
+                    <div className="p-6 space-y-4 sm:space-y-6">
+                        <h1 className="text-xl font-bold text-gray-900 md:text-2xl dark:text-white text-center">
+                            Create an account
+                        </h1>
+                        <form className="space-y-4 md:space-y-6" onSubmit={signUpHandleSubmit}>
+                            {/* Email Field */}
+                            <div>
+                                <p className="text-sm">{mssage}</p>
+                                <label
+                                    htmlFor="email"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                    Your email
+                                </label>
                                 <input
-                                    id="terms"
-                                    aria-describedby="terms"
-                                    type="checkbox"
-                                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="name@company.com"
                                     required
                                 />
                             </div>
-                            <div className="ml-3 text-sm">
+                            {/* Password Field */}
+                            <div>
                                 <label
-                                    htmlFor="terms"
-                                    className="font-light text-gray-500 dark:text-gray-300"
+                                    htmlFor="password"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >
-                                    I accept the{" "}
-                                    <a
-                                        href="#"
-                                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                                    >
-                                        Terms and Conditions
-                                    </a>
+                                    Password
                                 </label>
+                                <div className="relative">
+                                    <input
+                                        type={showPwd ? "text" : "password"}
+                                        name="password"
+                                        id="password"
+                                        placeholder="••••••••"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-8"
+                                        required
+                                    />
+                                    <span onClick={() => setShowPwd(!showPwd)} className="absolute top-[10px] right-2 cursor-pointer"> {showPwd ? "Hide" : "Show"} </span>
+                                </div>
                             </div>
+                            {/* Confirm Password Field */}
+                            <div>
+                                <label
+                                    htmlFor="confirm-password"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                    Confirm password
+                                </label>
+                                <div className="relative">
+                                    <input
+                                        type={showPwd ? "text" : "password"}
+                                        name="confirmPassword"
+                                        id="confirm-password"
+                                        placeholder="••••••••"
+                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white pr-8"
+                                        required
+                                    />
+                                    <span onClick={() => setShowPwd(!showPwd)} className="absolute top-[10px] right-2 cursor-pointer"> {showPwd ? "Hide" : "Show"} </span>
+                                </div>
+                            </div>
+                            {/* Submit Button */}
+                            <input
+                                type="submit"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white cursor-pointer"
+                                value="Sign Up"
+                            />
+                        </form>
+                        <div className="flex items-center justify-center gap-5">
+                            <div className="border rounded-md px-4 py-2">Login With Google</div>
                         </div>
-                        {/* Submit Button */}
-                        <button
-                            type="submit"
-                            className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                        >
-                            Create an account
-                        </button>
-                        {/* Redirect to Login */}
-                        <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-                            Already have an account?{" "}
-                            <NavLink to="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500" > Login here </NavLink>
-                        </p>
-                    </form>
+                    </div>
+                    {/* Redirect to Login */}
+                    <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center pb-10">
+                        Already have an account?
+                        <NavLink to="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500" > Login here </NavLink>
+                    </p>
                 </div>
-            </div>
-        </section>
+            </section>
+        </main>
     );
 };
 
