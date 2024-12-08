@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { FaGoogle } from "react-icons/fa";
+import { FaEyeSlash, FaEye } from "react-icons/fa";
 
 const SignUp = () => {
     const isDark = useSelector(state => state.changeTheme);
     const [showPwd, setShowPwd] = useState(false);
-    const [mssage, setMessage] = useState("");
+    const [message, setMessage] = useState("");
 
     const signUpHandleSubmit = (event) => {
         event.preventDefault();
@@ -38,7 +40,7 @@ const SignUp = () => {
                         <form className="space-y-4 md:space-y-6" onSubmit={signUpHandleSubmit}>
                             {/* Email Field */}
                             <div>
-                                <p className="text-sm">{mssage}</p>
+                                <p className="text-sm">{message}</p>
                                 <label
                                     htmlFor="email"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -71,7 +73,7 @@ const SignUp = () => {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 pr-8"
                                         required
                                     />
-                                    <span onClick={() => setShowPwd(!showPwd)} className="absolute top-[10px] right-2 cursor-pointer"> {showPwd ? "Hide" : "Show"} </span>
+                                    <span onClick={() => setShowPwd(!showPwd)} className="absolute top-[13px] right-3 cursor-pointer"> {showPwd ? <FaEyeSlash /> : <FaEye />} </span>
                                 </div>
                             </div>
                             {/* Confirm Password Field */}
@@ -91,7 +93,7 @@ const SignUp = () => {
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white pr-8"
                                         required
                                     />
-                                    <span onClick={() => setShowPwd(!showPwd)} className="absolute top-[10px] right-2 cursor-pointer"> {showPwd ? "Hide" : "Show"} </span>
+                                    <span onClick={() => setShowPwd(!showPwd)} className="absolute top-[13px] right-3 cursor-pointer"> {showPwd ? <FaEyeSlash /> : <FaEye />} </span>
                                 </div>
                             </div>
                             {/* Submit Button */}
@@ -101,8 +103,8 @@ const SignUp = () => {
                                 value="Sign Up"
                             />
                         </form>
-                        <div className="flex items-center justify-center gap-5">
-                            <div className="border rounded-md px-4 py-2">Login With Google</div>
+                        <div className="flex items-center justify-center gap-5 cursor-pointer">
+                            <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white flex gap-2 items-center"> <FaGoogle className="text-2xl" /> Login With Google</div>
                         </div>
                     </div>
                     {/* Redirect to Login */}

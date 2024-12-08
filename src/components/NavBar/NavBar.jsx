@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import TimelineIcon from '@mui/icons-material/Timeline';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { useDemoRouter } from '@toolpad/core/internal';
@@ -14,39 +12,35 @@ import { NavLink } from 'react-router-dom';
 import Profile from '../../pages/Profile/Profile';
 import Marketplace from '../../pages/Marketplace/Marketplace';
 import Checkout from '../../pages/Checkout/Checkout';
+import { ImProfile } from "react-icons/im";
+import { FaCcMastercard } from "react-icons/fa";
+import { TiShoppingCart } from "react-icons/ti";
 
 // Router Data 
 const NAVIGATION = [
   {
-    segment: '',
-    title: 'Home Page',
-    icon: <DashboardIcon />,
+    segment: "",
+    title: "Browsing Marketplace",
+    icon: <TiShoppingCart />,
   },
   {
     segment: "profile",
     title: 'Profile Management',
-    icon: <TimelineIcon />,
-  },
-  {
-    segment: "marketplace",
-    title: "Browsing Marketplace",
-    icon: <TimelineIcon />,
+    icon: <ImProfile />,
   },
   {
     segment: "checkout",
     title: "Checkout Functionality",
-    icon: <TimelineIcon />,
+    icon: <FaCcMastercard />,
   }
 ];
 // Showing Router Element 
 const RouterElement = ({ pathname }) => {
   switch (pathname.pathname) {
     case "/":
-      return <div>This Is Home Page</div>;
+      return <Marketplace />;
     case "/profile":
       return <Profile />;
-    case "/marketplace":
-      return <Marketplace />;
     case "/checkout":
       return <Checkout />;
     default:

@@ -1,16 +1,161 @@
-import { Helmet } from "react-helmet-async";
 
 const Checkout = () => {
-    return (
-        <div>
-            <Helmet>
-                <title>Checkout - SuperNo</title>
-            </Helmet>
-            <div className="p-4">
-                This is Checkout Page Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus facilis quam aliquam obcaecati, beatae quae eius voluptates molestiae unde rem, consectetur hic? Quasi, ipsum laboriosam saepe iste sed non sint quis consectetur itaque eligendi architecto debitis tempora, doloribus placeat pariatur dolore adipisci repellat facere? Enim a, doloremque saepe quam rem perspiciatis accusantium harum quas quibusdam est iste laboriosam laborum ratione vero totam, neque id nisi. Sunt fugiat totam assumenda blanditiis, molestias eligendi sit nisi impedit velit modi corporis itaque praesentium earum minus delectus animi illo, repellat voluptates sed? Id ullam incidunt asperiores fugiat molestias et nemo voluptates aliquid vel consectetur? Praesentium obcaecati fuga aliquid tempora odit deserunt laudantium optio a placeat. Illum eaque dolorem, quam, totam blanditiis fuga quasi vero deleniti consequatur facere error non quidem est quaerat esse libero dolor voluptatibus praesentium. Molestiae in cupiditate voluptatum est. Quo fuga ut omnis eius accusantium eligendi, ducimus aliquid, veniam quas incidunt saepe doloremque ipsum earum illo ex modi. Similique natus unde necessitatibus dolorem expedita nulla praesentium saepe exercitationem molestiae, distinctio corporis obcaecati facilis cumque voluptas. Repellat molestias eius ad officia a doloribus dolorum, praesentium eum et atque labore assumenda culpa, quas sit at fugiat eaque? Aut ratione maxime adipisci dicta, quos totam debitis non tempore eligendi alias fuga eveniet eaque velit minus, quibusdam tenetur ut pariatur rerum reprehenderit eum et assumenda porro dolorem placeat. Nemo obcaecati dicta quae saepe explicabo, sapiente, cumque et maiores porro eligendi ipsum soluta! Sit esse deleniti praesentium dolorem ipsum odit dolorum accusantium, inventore doloremque exercitationem, possimus aliquid adipisci sed. Ipsam qui aliquid quasi eos quo vitae corrupti error eum voluptatum est libero id provident commodi molestias quibusdam repudiandae iure molestiae, asperiores laborum ab consequuntur dicta saepe? Assumenda asperiores voluptas doloribus iure eius deleniti magni obcaecati quasi, ipsa tenetur error minus iusto corrupti delectus quae laudantium dolore quas reiciendis eaque architecto dolor sapiente eligendi veritatis. Mollitia odio, eligendi minus molestiae unde accusantium. Qui provident minima impedit et corporis quos similique repellendus praesentium autem, maiores incidunt ab. Id rem, magnam libero vitae nobis optio minima tempora ex sit assumenda cum quam. Ratione illo vel esse aut cupiditate aliquam, excepturi magnam perferendis possimus voluptatum rerum corrupti, ex fuga magni explicabo est, delectus non sint error quod sed. Facilis soluta facere eius quaerat sit eveniet laboriosam asperiores? Nemo temporibus, dignissimos numquam in suscipit sequi iure maxime quisquam odio totam repudiandae distinctio fugit consectetur. Omnis eligendi eaque iure illo necessitatibus nam sunt cupiditate optio? Est temporibus eveniet sit delectus earum quae vero ex sed assumenda? Nobis officia hic error temporibus harum ex? Vero qui repudiandae quis minus facere corrupti error, dolor dignissimos consequatur incidunt perferendis rem odit aperiam, accusantium impedit, accusamus reprehenderit necessitatibus nulla debitis amet tempore recusandae. At nam voluptatum voluptate earum quasi deserunt sunt nobis laboriosam quam. Maxime, fugiat magnam! Tenetur odio veritatis, ipsam suscipit possimus ex molestias dolores magni error saepe commodi velit voluptatum sit, minima alias? At, autem. Eum adipisci explicabo nobis, reiciendis dolorum corrupti beatae in nemo dolore dicta quod consequuntur! Quisquam excepturi provident aliquam architecto.
+  return (
+    <section className="bg-gray-50 dark:bg-gray-900 px-4 py-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Order Summary */}
+        <div className="md:col-span-1 bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-700 p-6">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+            Order Summary
+          </h2>
+          <ul className="space-y-4">
+            {/* Example Cart Items */}
+            {Array.from({ length: 5 }).map((_, index) => (
+              <li
+                key={index}
+                className="flex justify-between items-center border-b border-gray-200 pb-2 dark:border-gray-700"
+              >
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 dark:text-white">
+                    Product {index + 1}
+                  </h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    $49.99
+                  </p>
+                </div>
+                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                  1
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Subtotal
+              </span>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                $149.97
+              </span>
             </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Shipping
+              </span>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                $10.00
+              </span>
+            </div>
+            <div className="flex justify-between items-center text-lg font-bold mt-4">
+              <span className="text-gray-900 dark:text-white">Total</span>
+              <span className="text-primary-600 dark:text-primary-500">
+                $159.97
+              </span>
+            </div>
+          </div>
         </div>
-    );
+
+        {/* Billing/Shipping Form */}
+        <div className="md:col-span-2 bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-700 p-6">
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-6">
+            Billing & Shipping
+          </h2>
+          <form className="space-y-4">
+            {/* Full Name */}
+            <div>
+              <label
+                htmlFor="full-name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="full-name"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="John Doe"
+                required
+              />
+            </div>
+            {/* Address */}
+            <div>
+              <label
+                htmlFor="address"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Address
+              </label>
+              <textarea
+                id="address"
+                rows="3"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="123 Main St, City, Country"
+                required
+              ></textarea>
+            </div>
+            {/* Email */}
+            <div>
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="name@example.com"
+                required
+              />
+            </div>
+            {/* Phone */}
+            <div>
+              <label
+                htmlFor="phone"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Phone
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="+1234567890"
+                required
+              />
+            </div>
+            {/* Payment Method */}
+            <div>
+              <label
+                htmlFor="payment"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Payment Method
+              </label>
+              <select
+                id="payment"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
+              >
+                <option value="">Select Payment Method</option>
+                <option value="credit">Credit Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="cod">Cash on Delivery</option>
+              </select>
+            </div>
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            >
+              Place Order
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Checkout;
