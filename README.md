@@ -15,7 +15,6 @@ This project is a front-end implementation for the SuperNo MVP, showcasing intui
 - **React-Helmet-Async**: For managing document head and SEO optimization.
 - **React Icons**: For incorporating modern, customizable icons.
 - **TailwindCSS**: For responsive and modern design styling.
-- **Axios**: For handling API requests.
 - **Material UI**: For designing.
 
 ## 🧰 Installation

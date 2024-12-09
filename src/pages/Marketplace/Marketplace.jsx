@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import AddToCartModal from "../../components/AddToCartModal/AddToCartModal";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductsData } from "../../reduxFeatures/GetProducts/GetProductsSlice";
 
 
 const Marketplace = () => {
-    const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null); // Product selected for modal
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const { isLoading, isError, products } = useSelector(state => state.products);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        fetch("https://fakestoreapi.com/products")
-            .then((res) => res.json())
-            .then((data) => setProducts(data));
-    }, []);
+        dispatch(fetchProductsData())
+    }, [dispatch])
 
     const handleAddToCart = (product) => {
         setSelectedProduct(product);
@@ -20,6 +21,12 @@ const Marketplace = () => {
 
     return (
         <section className="bg-gray-50 dark:bg-[#121212] px-4 py-8">
+            {
+                isLoading && <div className="h-screen -mt-14 flex items-center justify-center text-2xl text-center">Loading...</div>
+            }
+            {
+                isError && <div className="h-screen -mt-14 flex items-center justify-center text-2xl text-center">Something is wrong</div>
+            }
             <div className="max-w-7xl mx-auto">
                 {/* Page Header */}
                 <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
@@ -42,34 +49,37 @@ const Marketplace = () => {
                     </div>
                 </div>
 
-                {/* Product Grid */}
+                {/* Product Start */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {products.map((product) => (
-                        <div
-                            key={product.id}
-                            className="bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-hidden"
-                        >
-                            <img
-                                className="w-full h-40 object-cover"
-                                src={product?.image}
-                                alt={product?.title}
-                            />
-                            <div className="p-4 flex flex-col justify-between items-start gap-2">
-                                <h2 className="font-bold text-gray-900 dark:text-white">
-                                    {product?.title.slice(0, 25)}
-                                    {product?.title.length > 25 && "..."}
-                                </h2>
-                                <p className="text-gray-500 dark:text-gray-400">${product?.price}</p>
-                                <button
-                                    className="bg-primary-600 hover:bg-primary-700 text-[#121212] dark:text-gray-200 font-medium py-2 px-4 rounded-lg text-sm dark:bg-primary-600 dark:hover:bg-primary-700 border"
-                                    onClick={() => handleAddToCart(product)}
-                                >
-                                    Add to Cart
-                                </button>
+                    {
+                        products && products.map((product) => (
+                            <div
+                                key={product.id}
+                                className="bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 overflow-hidden"
+                            >
+                                <img
+                                    className="w-full h-40 object-cover"
+                                    src={product?.image}
+                                    alt={product?.title}
+                                />
+                                <div className="p-4 flex flex-col justify-between items-start gap-2">
+                                    <h2 className="font-bold text-gray-900 dark:text-white">
+                                        {product?.title.slice(0, 25)}
+                                        {product?.title.length > 25 && "..."}
+                                    </h2>
+                                    <p className="text-gray-500 dark:text-gray-400">${product?.price}</p>
+                                    <button
+                                        className="bg-primary-600 hover:bg-primary-700 text-[#121212] dark:text-gray-200 font-medium py-2 px-4 rounded-lg text-sm dark:bg-primary-600 dark:hover:bg-primary-700 border"
+                                        onClick={() => handleAddToCart(product)}
+                                    >
+                                        Add to Cart
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    }
                 </div>
+                {/* Products End */}
             </div>
 
             {/* Modal for Add to Cart */}
