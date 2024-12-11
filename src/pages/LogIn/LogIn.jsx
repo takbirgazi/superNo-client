@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import auth from '../../firebase/firebase';
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { logInUser, setError } from "../../reduxFeatures/GoogleAuth/GoogleAuthSlice";
 
 const LogIn = () => {
@@ -15,9 +15,12 @@ const LogIn = () => {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    if (user) {
-        navigate("/");
-    }
+    useEffect(() => {
+        if (user !== null) {
+            navigate("/");
+        }
+    }, [navigate, user])
+
     const handleGoogleLogin = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
@@ -33,14 +36,20 @@ const LogIn = () => {
         const formData = event.target;
         const email = formData.email.value;
         const password = formData.password.value;
-        const confirmPassword = formData.confirmPassword.value;
-        const data = { email, password, confirmPassword }
-        if (password !== confirmPassword) {
-            setMessage(<span className="text-red-500">Password and Confirm password are not same!</span>);
+        if (!password && !email) {
+            setMessage(<span className="text-red-500">Email and password are require!</span>);
             return
         } else {
-            console.log(data);
-            setMessage(<span className="text-blue-400">Account Created Successfully!</span>);
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => {
+                    dispatch(logInUser(auth.currentUser));
+                    setMessage(<span className="text-blue-400">Log In Successfully!</span>);
+                    navigate("/");
+                })
+                .catch(error => {
+                    dispatch(setError(error.message));
+                    setMessage(<span className="text-red-500">{error.message}</span>);
+                })
 
         }
     }

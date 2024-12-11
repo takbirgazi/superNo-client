@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux";
 
 
 const Profile = () => {
+    const user = useSelector(state => state.user?.user);
     return (
         <section className="bg-gray-50 dark:bg-[#121212] flex items-center justify-center p-4 w-full">
             <div className="w-full sm:max-w-lg bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-700">
@@ -12,8 +14,8 @@ const Profile = () => {
                     <div className="flex flex-col items-center space-y-4">
                         <img
                             className="w-24 h-24 rounded-full object-cover shadow"
-                            src="https://via.placeholder.com/150"
-                            alt="Profile"
+                            src={user?.photoURL}
+                            alt={user?.displayName}
                         />
                         <label
                             htmlFor="profile-picture"

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { useDemoRouter } from '@toolpad/core/internal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ThemeChange from '../ThemeChange/ThemeChange';
 import { Button, createTheme, IconButton, Popover, Stack, TextField, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -15,6 +15,7 @@ import Checkout from '../../pages/Checkout/Checkout';
 import { ImProfile } from "react-icons/im";
 import { FaCcMastercard } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
+import { logOutUser } from '../../reduxFeatures/GoogleAuth/GoogleAuthSlice';
 
 // Router Data 
 const NAVIGATION = [
@@ -53,7 +54,8 @@ function CustomThemeSwitcher() {
   const isDark = useSelector((state) => state.changeTheme);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
-
+  const user = useSelector(state => state.user?.user);
+  const dispatch = useDispatch()
   const toggleMenu = useCallback(
     (event) => {
       setMenuAnchorEl(isMenuOpen ? null : event.currentTarget);
@@ -102,8 +104,10 @@ function CustomThemeSwitcher() {
             </Stack>
           </div>
           <div className='flex gap-2 border-t border-b py-1 border-gray-500'>
-            <Button href="/login">Log In</Button>
-            <Button href="#text-buttons">Sign Up</Button>
+            {
+              user ? <Button onClick={() => dispatch(logOutUser())} >Log Out</Button> : <><Button href="/login">Log In</Button>
+                <Button href="/signup">Sign Up</Button></>
+            }
           </div>
           <div className='w-full flex gap-1'>
             <ThemeChange /> Change to <span>{isDark ? "Light" : "Dark"}</span>
@@ -117,6 +121,8 @@ function CustomThemeSwitcher() {
 // Menu Navbar Desktop
 
 function NavbarItems() {
+  const user = useSelector(state => state.user?.user);
+  const dispatch = useDispatch()
   return (
     <div>
       <div className='hidden md:flex gap-5 items-center'>
@@ -143,14 +149,19 @@ function NavbarItems() {
           <ThemeChange />
         </div>
         <div className='flex gap-5 items-center'>
-          <NavLink to="/login" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Log In</NavLink>
-          <NavLink to="/signup" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Sign Up</NavLink>
+          {
+
+            user ? <button onClick={() => dispatch(logOutUser())} className='border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800'>Log Out</button> : <><NavLink to="/login" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Log In</NavLink>
+              <NavLink to="/signup" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Sign Up</NavLink></>
+
+          }
+
         </div>
       </div>
       <div className='flex md:hidden'>
         <CustomThemeSwitcher />
       </div>
-    </div>
+    </div >
   );
 };
 
