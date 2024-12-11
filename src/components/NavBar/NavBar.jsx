@@ -7,7 +7,7 @@ import ThemeChange from '../ThemeChange/ThemeChange';
 import { Button, createTheme, IconButton, Popover, Stack, TextField, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Profile from '../../pages/Profile/Profile';
 import Marketplace from '../../pages/Marketplace/Marketplace';
@@ -16,6 +16,8 @@ import { ImProfile } from "react-icons/im";
 import { FaCcMastercard } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { logOutUser } from '../../reduxFeatures/GoogleAuth/GoogleAuthSlice';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import auth from '../../firebase/firebase';
 
 // Router Data 
 const NAVIGATION = [
@@ -54,8 +56,24 @@ function CustomThemeSwitcher() {
   const isDark = useSelector((state) => state.changeTheme);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
-  const user = useSelector(state => state.user?.user);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser)
+      } else {
+        setUser(null)
+      }
+    })
+  }, [user])
+
+  const handleSignOut = () => {
+    dispatch(logOutUser());
+    signOut(auth);
+  }
+
   const toggleMenu = useCallback(
     (event) => {
       setMenuAnchorEl(isMenuOpen ? null : event.currentTarget);
@@ -105,7 +123,7 @@ function CustomThemeSwitcher() {
           </div>
           <div className='flex gap-2 border-t border-b py-1 border-gray-500'>
             {
-              user ? <Button onClick={() => dispatch(logOutUser())} >Log Out</Button> : <><Button href="/login">Log In</Button>
+              user ? <Button onClick={handleSignOut} >Log Out</Button> : <><Button href="/login">Log In</Button>
                 <Button href="/signup">Sign Up</Button></>
             }
           </div>
@@ -121,8 +139,24 @@ function CustomThemeSwitcher() {
 // Menu Navbar Desktop
 
 function NavbarItems() {
-  const user = useSelector(state => state.user?.user);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser)
+      } else {
+        setUser(null)
+      }
+    })
+  }, [user])
+
+  const handleSignOut = () => {
+    dispatch(logOutUser());
+    signOut(auth);
+  }
+
   return (
     <div>
       <div className='hidden md:flex gap-5 items-center'>
@@ -151,7 +185,7 @@ function NavbarItems() {
         <div className='flex gap-5 items-center'>
           {
 
-            user ? <button onClick={() => dispatch(logOutUser())} className='border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800'>Log Out</button> : <><NavLink to="/login" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Log In</NavLink>
+            user ? <button onClick={handleSignOut} className='border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800'>Log Out</button> : <><NavLink to="/login" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Log In</NavLink>
               <NavLink to="/signup" className="border rounded-[4px] px-4 py-[6px] border-[#c4c4c4] text-[#757575] dark:text-[#b8b8b8] dark:border-[#494949] hover:bg-[#41a9f9] hover:text-gray-800 dark:hover:text-gray-800">Sign Up</NavLink></>
 
           }

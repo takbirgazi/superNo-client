@@ -1,8 +1,22 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import auth from "../../firebase/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 
 const Profile = () => {
-    const user = useSelector(state => state.user?.user);
+    const [user, setUser] = useState(null)
+
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                setUser(currentUser)
+            } else {
+                setUser(null)
+            }
+        })
+    }, [user])
+
     return (
         <section className="bg-gray-50 dark:bg-[#121212] flex items-center justify-center p-4 w-full">
             <div className="w-full sm:max-w-lg bg-white rounded-lg shadow dark:bg-gray-800 dark:border dark:border-gray-700">
@@ -14,8 +28,8 @@ const Profile = () => {
                     <div className="flex flex-col items-center space-y-4">
                         <img
                             className="w-24 h-24 rounded-full object-cover shadow"
-                            src={user?.photoURL}
-                            alt={user?.displayName}
+                            src={user ? user?.photoURL : "https://placehold.co/400x400/png"}
+                            alt={user ? user?.displayName : "Profile"}
                         />
                         <label
                             htmlFor="profile-picture"
