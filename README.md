@@ -16,6 +16,7 @@ This project is a front-end implementation for the SuperNo MVP, showcasing intui
 - **React Icons**: For incorporating modern, customizable icons.
 - **TailwindCSS**: For responsive and modern design styling.
 - **Material UI**: For designing.
+- **Firebase**: For Authantication.
 
 ## 🧰 Installation
 1. Clone the repository:

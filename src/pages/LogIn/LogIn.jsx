@@ -1,14 +1,32 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
+import auth from '../../firebase/firebase';
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { logInUser, setError } from "../../reduxFeatures/GoogleAuth/GoogleAuthSlice";
 
 const LogIn = () => {
     const isDark = useSelector(state => state.changeTheme);
+    const user = useSelector(state => state.user?.user);
     const [showPwd, setShowPwd] = useState(false);
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+    if (user) {
+        navigate("/");
+    }
+    const handleGoogleLogin = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then(() => {
+                dispatch(logInUser(auth.currentUser));
+                navigate("/");
+            })
+            .catch(error => dispatch(setError(error.message)))
+    }
 
     const logInHandleSubmit = (event) => {
         event.preventDefault();
@@ -83,7 +101,7 @@ const LogIn = () => {
                                 value="Log In"
                             />
                         </form>
-                        <div className="flex items-center justify-center gap-5 cursor-pointer">
+                        <div onClick={handleGoogleLogin} className="flex items-center justify-center gap-5 cursor-pointer">
                             <div className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white flex gap-2 items-center"> <FaGoogle className="text-2xl" /> Login With Google</div>
                         </div>
                     </div>
