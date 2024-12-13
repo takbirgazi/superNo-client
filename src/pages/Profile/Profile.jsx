@@ -1,21 +1,8 @@
-import { useEffect, useState } from 'react';
-import auth from "../../firebase/firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import useCurrentUser from '../../hooks/useCurrentUser';
 
 
 const Profile = () => {
-    const [user, setUser] = useState(null)
-
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser)
-            } else {
-                setUser(null)
-            }
-        })
-    }, [user])
+    const user = useCurrentUser();
 
     return (
         <section className="bg-gray-50 dark:bg-[#121212] flex items-center justify-center p-4 w-full">

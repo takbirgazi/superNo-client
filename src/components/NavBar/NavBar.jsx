@@ -7,7 +7,7 @@ import ThemeChange from '../ThemeChange/ThemeChange';
 import { Button, createTheme, IconButton, Popover, Stack, TextField, Tooltip } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Profile from '../../pages/Profile/Profile';
 import Marketplace from '../../pages/Marketplace/Marketplace';
@@ -16,8 +16,9 @@ import { ImProfile } from "react-icons/im";
 import { FaCcMastercard } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import { logOutUser } from '../../reduxFeatures/GoogleAuth/GoogleAuthSlice';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
 import auth from '../../firebase/firebase';
+import useCurrentUser from '../../hooks/useCurrentUser';
+import { signOut } from 'firebase/auth';
 
 // Router Data 
 const NAVIGATION = [
@@ -57,17 +58,7 @@ function CustomThemeSwitcher() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
   const dispatch = useDispatch();
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser)
-      } else {
-        setUser(null)
-      }
-    })
-  }, [user])
+  const user = useCurrentUser();
 
   const handleSignOut = () => {
     dispatch(logOutUser());
@@ -140,17 +131,7 @@ function CustomThemeSwitcher() {
 
 function NavbarItems() {
   const dispatch = useDispatch();
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser)
-      } else {
-        setUser(null)
-      }
-    })
-  }, [user])
+  const user = useCurrentUser();
 
   const handleSignOut = () => {
     dispatch(logOutUser());

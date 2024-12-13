@@ -5,8 +5,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import auth from '../../firebase/firebase';
-import { GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { logInUser, setError } from "../../reduxFeatures/GoogleAuth/GoogleAuthSlice";
+import useCurrentUser from "../../hooks/useCurrentUser";
 
 const LogIn = () => {
     const isDark = useSelector(state => state.changeTheme);
@@ -14,17 +15,7 @@ const LogIn = () => {
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [user, setUser] = useState(null)
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser)
-            } else {
-                setUser(null)
-            }
-        })
-    }, [user])
+    const user = useCurrentUser();
 
     useEffect(() => {
         if (user !== null) {
