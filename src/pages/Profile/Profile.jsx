@@ -15,8 +15,8 @@ const Profile = () => {
                     <div className="flex flex-col items-center space-y-4">
                         <img
                             className="w-24 h-24 rounded-full object-cover shadow"
-                            src={user ? user?.photoURL : "https://placehold.co/400x400/png"}
-                            alt={user ? user?.displayName : "Profile"}
+                            src={user?.photoURL !== null ? user?.photoURL : "https://placehold.co/400x400?text=Profile"}
+                            alt={user?.displayName !== null ? user?.displayName : "Profile"}
                         />
                         <label
                             htmlFor="profile-picture"

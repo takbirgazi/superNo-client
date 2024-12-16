@@ -17,6 +17,7 @@ This project is a front-end implementation for the SuperNo MVP, showcasing intui
 - **TailwindCSS**: For responsive and modern design styling.
 - **Material UI**: For designing.
 - **Firebase**: For Authantication.
+- **html2canvas && jspdf**: For Making PDF
 
 ## 🧰 Installation
 1. Clone the repository:

@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = () => {
     const isDarkInStore = localStorage.getItem("isDark");
     if (!isDarkInStore) {
-        localStorage.setItem("isDark", false);
-        return false;
+        localStorage.setItem("isDark", true);
+        return true;
     } else {
         if (isDarkInStore == "true") {
             return true;
