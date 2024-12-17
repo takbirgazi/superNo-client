@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ThemeChange from "../ThemeChange/ThemeChange";
 import { IconButton, Stack, TextField } from '@mui/material';
 import useCurrentUser from "../../hooks/useCurrentUser";
@@ -12,6 +12,7 @@ import CustomThemeSwitcher from "./CustomThemeSwitcher";
 function NavbarItems() {
     const dispatch = useDispatch();
     const user = useCurrentUser();
+    const isDark = useSelector((state) => state.changeTheme);
 
     const handleSignOut = () => {
         dispatch(logOutUser());
@@ -40,7 +41,7 @@ function NavbarItems() {
                         />
                     </Stack>
                 </div>
-                <div className='border hover:text-gray-200 dark:hover:text-gray-200 dark:text-[#ac9330] text-[#757575] hover:bg-[#41a9f9] rounded-full p-[6px] border-[#c4c4c4] dark:border-[#494949]'>
+                <div title={`Change to ${isDark ? "Light" : "Dark"}`}>
                     <ThemeChange />
                 </div>
                 <div className='flex gap-5 items-center'>

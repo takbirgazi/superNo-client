@@ -74,8 +74,8 @@ function CustomThemeSwitcher() {
                                 <Button href="/signup">Sign Up</Button></>
                         }
                     </div>
-                    <div className='w-full flex gap-1'>
-                        <ThemeChange /> Change to <span>{isDark ? "Light" : "Dark"}</span>
+                    <div className='w-full flex gap-1 items-center'>
+                        <ThemeChange /> <p>Change to {isDark ? "Light" : "Dark"}</p>
                     </div>
                 </div>
 
