@@ -58,7 +58,7 @@ const SignUp = () => {
     return (
         <main className={`${isDark && "dark"}`}>
             <Helmet>
-                <title>Sign Up - SuperNo</title>
+                <title>Sign Up - {import.meta.env.VITE_project_name}</title>
             </Helmet>
             <section className="bg-gray-50 dark:bg-[#121212] min-h-screen flex items-center justify-center p-4">
                 <div className="w-full sm:max-w-md lg:max-w-lg bg-white dark:bg-gray-800 rounded-lg shadow dark:border dark:border-gray-700">

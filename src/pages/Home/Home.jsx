@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <div>
             <Helmet>
-                <title>Home - SuperNo</title>
+                <title>Home - {import.meta.env.VITE_project_name}</title>
             </Helmet>
             <div>
                 <NavBar />

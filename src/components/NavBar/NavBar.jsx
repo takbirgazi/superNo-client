@@ -10,20 +10,27 @@ import Checkout from '../../pages/Checkout/Checkout';
 import { ImProfile } from "react-icons/im";
 import { FaCcMastercard } from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
+import { HiOutlineGlobeEuropeAfrica } from "react-icons/hi2";
 import NavbarItems from './NavbarItems';
 import SidebarUser from './SidebarUser';
+import Cart from '../../pages/Cart/Cart';
 
 // Router Data 
 const NAVIGATION = [
   {
     segment: "",
     title: "Browsing Marketplace",
-    icon: <TiShoppingCart />,
+    icon: <HiOutlineGlobeEuropeAfrica />,
   },
   {
     segment: "profile",
     title: 'Profile Management',
     icon: <ImProfile />,
+  },
+  {
+    segment: "cart",
+    title: "Cart Functionality",
+    icon: <TiShoppingCart />,
   },
   {
     segment: "checkout",
@@ -40,6 +47,8 @@ const RouterElement = ({ pathname }) => {
       return <Profile />;
     case "/checkout":
       return <Checkout />;
+    case "/cart":
+      return <Cart />;
     default:
       return <div className='flex items-center justify-center text-center h-full text-2xl'>No Data Found</div>;
   }

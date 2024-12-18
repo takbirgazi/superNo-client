@@ -1,9 +1,13 @@
+import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 
 const ErrorPage = () => {
     const isDark = useSelector(state => state.changeTheme);
     return (
         <main className={isDark && "dark"}>
+            <Helmet>
+                <title>Not Found - {import.meta.env.VITE_project_name}</title>
+            </Helmet>
             <section className="bg-gray-50 dark:bg-[#121212] min-h-screen flex items-center justify-center px-6 py-12">
                 <div className="text-center">
                     <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white sm:text-5xl">
