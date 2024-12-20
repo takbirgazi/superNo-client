@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { MdDelete } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
+    const allCart = useSelector(state => state.cart?.items);
+    const allProducts = useSelector(state => state.products?.products);
     const [cartItems, setCartItems] = useState([]);
+
+    const cartProducts = allProducts.filter(product => allCart.includes(product?.id))
 
     const updateQuantity = (id, quantity) => {
         setCartItems((prevItems) =>
@@ -21,24 +26,6 @@ const Cart = () => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
     };
 
-    useEffect(() => {
-        setCartItems([
-            {
-                id: 1,
-                name: "Product 1",
-                price: 49.99,
-                quantity: 1,
-                image: "https://via.placeholder.com/150",
-            },
-            {
-                id: 2,
-                name: "Product 2",
-                price: 89.99,
-                quantity: 2,
-                image: "https://via.placeholder.com/150",
-            }
-        ])
-    }, [])
 
     return (
         <main>
@@ -51,14 +38,14 @@ const Cart = () => {
                         Your Cart
                     </h1>
 
-                    {cartItems.length === 0 ? (
+                    {cartProducts.length === 0 ? (
                         <p className="text-gray-500 dark:text-gray-400 text-center">
                             Your cart is empty.
                         </p>
                     ) : (
                         <div>
                             <div className="space-y-3">
-                                {cartItems.map((item) => (
+                                {cartProducts.map((item) => (
                                     <div
                                         key={item.id}
                                         className="flex items-center justify-between bg-white dark:bg-[#121212] rounded-lg shadow-md p-4 border dark:border-[#494949]"
@@ -66,12 +53,12 @@ const Cart = () => {
                                         <div className="flex items-center space-x-4">
                                             <img
                                                 src={item.image}
-                                                alt={item.name}
+                                                alt={item?.title}
                                                 className="w-20 h-20 rounded-md object-cover"
                                             />
                                             <div>
                                                 <h2 className="text-lg font-medium text-gray-900 dark:text-white">
-                                                    {item.name}
+                                                    {item?.title}
                                                 </h2>
                                                 <p className="text-gray-500 dark:text-gray-400">
                                                     ${item.price.toFixed(2)}
@@ -82,7 +69,7 @@ const Cart = () => {
                                             <input
                                                 type="number"
                                                 min="1"
-                                                defaultValue={item.quantity}
+                                                defaultValue={1}
                                                 onChange={(e) =>
                                                     updateQuantity(item.id, parseInt(e.target.value, 10))
                                                 }

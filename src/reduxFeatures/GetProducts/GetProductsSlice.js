@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchProductsData = createAsyncThunk("products/fetchProductsData", async () => {
-    const allProducts = await fetch("https://fakestoreapi.com/products")
+    const allProducts = await fetch(`${import.meta.env.VITE_base_api}/products`)
         .then((res) => res.json())
         .then((data) => data);
     return allProducts;

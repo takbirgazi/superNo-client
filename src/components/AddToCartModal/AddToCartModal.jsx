@@ -1,8 +1,16 @@
 import { PropTypes } from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { addCart } from '../../reduxFeatures/ProductCart/ProductCartSlice';
 
 
 const AddToCartModal = ({ product, isOpen, onClose }) => {
+    const dispatch = useDispatch();
+
     if (!isOpen || !product) return null;
+    const handleConfirmCart = (product) => {
+        dispatch(addCart(product?.id))
+        onClose();
+    }
 
     return (
         <div
@@ -42,7 +50,7 @@ const AddToCartModal = ({ product, isOpen, onClose }) => {
                     </button>
                     <button
                         className="px-6 py-2 bg-primary-600 hover:bg-primary-700 text-[#121212] dark:text-gray-200 rounded-lg"
-                        onClick={() => alert("Proceed to Checkout")}
+                        onClick={() => handleConfirmCart(product)}
                     >
                         Confirm
                     </button>
