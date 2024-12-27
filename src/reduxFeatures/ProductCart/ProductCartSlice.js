@@ -8,7 +8,7 @@ const initialState = {
             localStorage.setItem('cart', []);
             return [];
         } else {
-            return [data];
+            return data;
         }
     })()
 }
@@ -18,7 +18,8 @@ const ProductCartSlice = createSlice({
     initialState,
     reducers: {
         addCart: (state, action) => {
-            localStorage.setItem('cart', [...state.items, action.payload]);
+            const data = [...state.items, action.payload]
+            localStorage.setItem('cart', JSON.stringify(data));
             state.items.push(action.payload);
         },
         removeCart: (state, action) => {
