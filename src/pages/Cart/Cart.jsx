@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const Cart = () => {
     const cartData = useSelector(state => state.cart?.items);
-    const allCart = JSON.parse(cartData)
+    const allCart = cartData.length === 0 ? [] : JSON.parse(cartData);
     const allProducts = useSelector(state => state.products?.products);
 
     // const cartProducts = allProducts.filter(product => allCart.includes(product?.id));
@@ -23,7 +23,7 @@ const Cart = () => {
     //     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
     // };
 
-
+    console.log(allCart)
     return (
         <main>
             <Helmet>
