@@ -7,7 +7,7 @@ import { fetchProductsData } from "../../reduxFeatures/GetProducts/GetProductsSl
 const Marketplace = () => {
     const [selectedProduct, setSelectedProduct] = useState(null); // Product selected for modal
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { isLoading, isError, products } = useSelector(state => state.products);
+    const { isError, products } = useSelector(state => state.products);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,12 +21,6 @@ const Marketplace = () => {
 
     return (
         <section className="bg-gray-50 dark:bg-[#121212] px-4 py-8">
-            {
-                isLoading && <div className="h-screen -mt-14 flex items-center justify-center text-2xl text-center">Loading...</div>
-            }
-            {
-                isError && <div className="h-screen -mt-14 flex items-center justify-center text-2xl text-center">Something is wrong</div>
-            }
             <div className="max-w-7xl mx-auto">
                 {/* Page Header */}
                 <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
@@ -48,7 +42,13 @@ const Marketplace = () => {
                         </select>
                     </div>
                 </div>
-
+                {/* Loading and Error Handling */}
+                {
+                    products.length > 0 || <div className="h-screen -mt-14 flex items-center justify-center text-2xl text-center">Loading...</div>
+                }
+                {
+                    isError && <div className="h-screen -mt-14 flex items-center justify-center text-2xl text-center">Something is wrong</div>
+                }
                 {/* Product Start */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {
