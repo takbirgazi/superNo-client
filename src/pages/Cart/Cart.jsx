@@ -3,8 +3,7 @@ import { MdDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 const Cart = () => {
-    const cartData = useSelector(state => state.cart?.items);
-    const allCart = cartData.length === 0 ? [] : JSON.parse(cartData);
+    const allCart = useSelector(state => state.cart?.items);
     const allProducts = useSelector(state => state.products?.products);
 
     // const cartProducts = allProducts.filter(product => allCart.includes(product?.id));

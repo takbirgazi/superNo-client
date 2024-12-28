@@ -8,7 +8,7 @@ const initialState = {
             localStorage.setItem('cart', []);
             return [];
         } else {
-            return data;
+            return JSON.parse(data);
         }
     })()
 }
