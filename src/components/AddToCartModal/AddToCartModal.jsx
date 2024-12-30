@@ -1,15 +1,20 @@
 import { PropTypes } from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCart } from '../../reduxFeatures/ProductCart/ProductCartSlice';
 
 
 const AddToCartModal = ({ product, isOpen, onClose }) => {
     const dispatch = useDispatch();
+    const allCart = useSelector(state => state.cart?.items);
 
     if (!isOpen || !product) return null;
     const handleConfirmCart = (product) => {
-        dispatch(addCart(product?.id))
-        onClose();
+        if (allCart.includes(product?.id)) {
+            alert('Product already in cart');
+        } else {
+            dispatch(addCart(product?.id))
+            onClose();
+        }
     }
 
     return (

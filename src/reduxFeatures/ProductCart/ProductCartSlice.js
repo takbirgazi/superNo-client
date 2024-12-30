@@ -24,6 +24,7 @@ const ProductCartSlice = createSlice({
         },
         removeCart: (state, action) => {
             state.items = action.payload;
+            localStorage.setItem('cart', JSON.stringify(state.items));
         }
     }
 });

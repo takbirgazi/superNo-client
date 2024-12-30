@@ -1,28 +1,34 @@
 import { Helmet } from "react-helmet-async";
 import { MdDelete } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeCart } from "../../reduxFeatures/ProductCart/ProductCartSlice";
 
 const Cart = () => {
     const allCart = useSelector(state => state.cart?.items);
     const allProducts = useSelector(state => state.products?.products);
+    const dispatch = useDispatch();
 
+    // Filter products
     // const cartProducts = allProducts.filter(product => allCart.includes(product?.id));
     // Filter products based on cart items step by step
     const cartProducts = allCart?.map(item => allProducts.find(product => product?.id === item));
 
+    // Remove item from cart
+    const removeItem = (id) => {
+        const removerCart = allCart.filter((item) => item !== id);
+        dispatch(removeCart(removerCart))
+    };
+
+    // Update quantity
     const updateQuantity = (price, id) => {
         console.log(price, id)
     };
 
-    // const removeItem = (id) => {
-    //     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-    // };
-
+    // Total Amount Calculation
     // const calculateTotal = () => {
     //     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
     // };
 
-    console.log(allCart)
     return (
         <main>
             <Helmet>
@@ -72,7 +78,7 @@ const Cart = () => {
                                                 className="w-16 text-center bg-gray-50 border border-gray-300 text-[#121212] rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none"
                                             />
                                             <button
-                                                // onClick={() => removeItem(item?.id)}
+                                                onClick={() => removeItem(item?.id)}
                                                 className="text-red-600 dark:text-red-400 text-2xl"
                                             >
                                                 <MdDelete />
