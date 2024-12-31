@@ -11,23 +11,35 @@ const Cart = () => {
     // Filter products
     // const cartProducts = allProducts.filter(product => allCart.includes(product?.id));
     // Filter products based on cart items step by step
-    const cartProducts = allCart?.map(item => allProducts.find(product => product?.id === item));
-
+    const cartProducts = allCart?.map(item => allProducts.find(product => product?.id === item.id));
     // Remove item from cart
     const removeItem = (id) => {
-        const removerCart = allCart.filter((item) => item !== id);
+        const removerCart = allCart.filter((item) => item.id !== id);
+        console.log(removerCart)
         dispatch(removeCart(removerCart))
     };
 
     // Update quantity
-    const updateQuantity = (price, id) => {
-        console.log(price, id)
+    const updateQuantity = (id, newQuantity) => {
+        const updatedCart = allCart.map((item) =>
+            item.id === id
+                ? { ...item, quantity: Math.max(1, newQuantity) }
+                : item
+        );
+        console.log(updatedCart)
     };
 
     // Total Amount Calculation
-    // const calculateTotal = () => {
-    //     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
-    // };
+    const calculateTotal = () => {
+        if (!cartProducts || cartProducts.length === 0) return "0.00";
+
+        const total = cartProducts.reduce((acc, item) => {
+            const quantity = item?.quantity || 1;
+            return acc + item?.price * quantity;
+        }, 0);
+
+        return total.toFixed(2);
+    };
 
     return (
         <main>
@@ -73,7 +85,7 @@ const Cart = () => {
                                                 min="1"
                                                 defaultValue={1}
                                                 onChange={(e) =>
-                                                    updateQuantity(((item?.price * e.target.value) > 0 ? (item?.price * e.target.value) : e.target.value = 1), item?.id)
+                                                    updateQuantity(item.id, parseInt(e.target.value, 10))
                                                 }
                                                 className="w-16 text-center bg-gray-50 border border-gray-300 text-[#121212] rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none"
                                             />
@@ -94,7 +106,7 @@ const Cart = () => {
                                         Total:
                                     </span>
                                     <span className="text-lg font-bold text-primary-600 dark:text-primary-400">
-                                        {/* ${calculateTotal()} */}
+                                        ${calculateTotal()}
                                     </span>
                                 </div>
                             </div>

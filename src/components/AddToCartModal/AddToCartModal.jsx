@@ -9,10 +9,10 @@ const AddToCartModal = ({ product, isOpen, onClose }) => {
 
     if (!isOpen || !product) return null;
     const handleConfirmCart = (product) => {
-        if (allCart.includes(product?.id)) {
+        if (allCart.map(prod => prod.id).includes(product?.id)) {
             alert('Product already in cart');
         } else {
-            dispatch(addCart(product?.id))
+            dispatch(addCart({ id: product?.id, qty: 1 }));
             onClose();
         }
     }
