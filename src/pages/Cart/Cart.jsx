@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { removeCart } from "../../reduxFeatures/ProductCart/ProductCartSlice";
+import { updateCart, removeCart } from "../../reduxFeatures/ProductCart/ProductCartSlice";
 
 const Cart = () => {
     const allCart = useSelector(state => state.cart?.items);
@@ -15,30 +15,25 @@ const Cart = () => {
     // Remove item from cart
     const removeItem = (id) => {
         const removerCart = allCart.filter((item) => item.id !== id);
-        console.log(removerCart)
         dispatch(removeCart(removerCart))
-    };
-
-    // Update quantity
-    const updateQuantity = (id, newQuantity) => {
-        const updatedCart = allCart.map((item) =>
-            item.id === id
-                ? { ...item, quantity: Math.max(1, newQuantity) }
-                : item
-        );
-        console.log(updatedCart)
     };
 
     // Total Amount Calculation
     const calculateTotal = () => {
-        if (!cartProducts || cartProducts.length === 0) return "0.00";
+        if (!allCart || allCart.length === 0) return "0.00";
+        const total = allCart.reduce((acc, item) => {
 
-        const total = cartProducts.reduce((acc, item) => {
-            const quantity = item?.quantity || 1;
-            return acc + item?.price * quantity;
+            const quantity = item?.price * item?.qty;
+            return acc + quantity;
         }, 0);
 
         return total.toFixed(2);
+    };
+
+    // Update quantity
+    const updateQuantity = (id, qty) => {
+        const changeQty = allCart.map((item) => { return item.id === id ? { ...item, qty } : item });
+        dispatch(updateCart(changeQty))
     };
 
     return (
@@ -83,7 +78,7 @@ const Cart = () => {
                                             <input
                                                 type="number"
                                                 min="1"
-                                                defaultValue={1}
+                                                defaultValue={allCart[ind]?.qty}
                                                 onChange={(e) =>
                                                     updateQuantity(item.id, parseInt(e.target.value, 10))
                                                 }

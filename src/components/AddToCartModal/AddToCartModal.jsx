@@ -12,7 +12,7 @@ const AddToCartModal = ({ product, isOpen, onClose }) => {
         if (allCart.map(prod => prod.id).includes(product?.id)) {
             alert('Product already in cart');
         } else {
-            dispatch(addCart({ id: product?.id, qty: 1 }));
+            dispatch(addCart({ id: product?.id, qty: 1, price: product?.price }));
             onClose();
         }
     }
