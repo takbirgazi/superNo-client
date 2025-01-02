@@ -55,7 +55,7 @@ const Cart = () => {
                         <div>
                             <div className="space-y-3">
                                 {cartProducts?.map((item, ind) => (
-                                    <div
+                                    item && <div
                                         key={ind}
                                         className="flex items-center justify-between bg-white dark:bg-[#121212] rounded-lg shadow-md p-4 border dark:border-[#494949]"
                                     >
